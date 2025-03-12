@@ -11,6 +11,9 @@ builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IHttpService, HttpService>();
 builder.Services.Configure<APIServer>(builder.Configuration.GetSection("APIServer"));
 
+builder.Services.AddSession(); 
+//builder.Services.AddDistributedMemoryCache(); 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,6 +24,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseRouting();
 

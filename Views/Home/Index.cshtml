@@ -1,4 +1,4 @@
-﻿
+﻿@model LoginViewModel
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Login";
@@ -7,14 +7,18 @@
 <div class="d-flex justify-content-center align-items-center vh-100 bg-light">
     <div class="card shadow p-4" style="width: 350px;">
         <h2 class="text-center mb-4">Login</h2>
-        <form id="login-form">
+        @if (ViewData["Error"] != null)
+        {
+            <div class="alert alert-danger">@ViewData["Error"]</div>
+        }
+        <form method="post">
             <div class="mb-3">
                 <label class="form-label">Username</label>
-                <input type="text" id="username" class="form-control" required>
+                <input type="text" name="Username" class="form-control" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Password</label>
-                <input type="password" id="password" class="form-control" required>
+                <input type="password" name="Password" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-primary w-100">Login</button>
         </form>

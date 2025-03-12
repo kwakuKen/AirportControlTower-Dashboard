@@ -66,4 +66,19 @@ public class DashboardService(
         }
         return default!;
     }
+
+    public async Task<LoginResponse?> Login(LoginViewModel loginViewModel)
+    {
+        try
+        {
+            var result = await httpService.PostAsync<LoginViewModel, LoginResponse>("login", loginViewModel);
+            if (result is null) return default;
+            return result;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error in DashboardService");
+        }
+        return default!;
+    }
 }
