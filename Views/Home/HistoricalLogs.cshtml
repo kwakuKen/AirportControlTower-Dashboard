@@ -1,0 +1,41 @@
+﻿
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Historical Logs";
+}
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div class="bg-dark text-white p-3" style="width: 250px; min-height: 100vh;">
+        <h4 class="mb-4">Menu</h4>
+        <ul class="nav flex-column">
+            <li class="nav-item mb-2">
+                <a href="/Home/Dashboard" class="nav-link text-white">Dashboard</a>
+            </li>
+            <li class="nav-item mb-2">
+                <a href="/Home/AircraftList" class="nav-link text-white">Aircraft List</a>
+            </li>
+            <li class="nav-item">
+                <a href="/Home/HistoricalLogs" class="nav-link text-white">Historical Logs</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mt-4 flex-grow-1">
+        <h2 class="mb-4">State Change Logs</h2>
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Call Sign</th>
+                    <th>State Change</th>
+                    <th>Outcome</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody id="logs-table">
+                <!-- Data will be inserted here dynamically -->
+            </tbody>
+        </table>
+    </div>
+</div>
