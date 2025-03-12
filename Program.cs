@@ -1,4 +1,5 @@
 using ControlTowerDashboard.Interfaces;
+using ControlTowerDashboard.Models.Settings;
 using ControlTowerDashboard.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IHttpService, HttpService>();
+builder.Services.Configure<APIServer>(builder.Configuration.GetSection("APIServer"));
 
 var app = builder.Build();
 

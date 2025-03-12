@@ -1,4 +1,5 @@
-﻿@{
+﻿@model DashboardViewModel
+@{
     Layout = "_AdminLayout";
     ViewData["Title"] = "Dashboard";
 }
@@ -25,10 +26,69 @@
         <h2 class="mb-4">Dashboard</h2>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="card p-3 mb-4 shadow-sm">
                     <h4>Latest Weather Data</h4>
-                    <p id="weather-data">Fetching data...</p>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Description:</strong> @Model.Weather?.description</li>
+                        <li class="list-group-item"><strong>Temperature:</strong> @Model.Weather?.temperature</li>
+                        <li class="list-group-item"><strong>Visibility:</strong> @Model.Weather?.visibility</li>
+                        <li class="list-group-item"><strong>Wind Speed:</strong>@Model.Weather?.windSpeed</li>
+                        <li class="list-group-item"><strong>Wind Direction:</strong> @Model.Weather?.windDirection</li>
+                        <li class="list-group-item"><strong>Created At:</strong> @Model.Weather?.createdAt</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card p-3 mb-4 shadow-sm">
+                    <h4 class="mt-4">Recent State Changes</h4>
+                    <div id="recent-logs" class="p-3 border rounded bg-white">
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>State</th>
+                                    <th>Outcome</th>
+                                    <th>Reason</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (Model.Logs != null && Model.Logs.Any())
+                                {
+                                    foreach (var log in Model.Logs)
+                                    {
+                                        <tr>
+                                            <td>@log.state</td>
+                                            <td>
+                                                @{
+                                                    @if (log.isAccepted)
+                                                    {
+                                                        <p>ACCEPTED</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>ACCEPTED</p>
+                                                    }
+                                                }
+                                            </td>
+                                            <td>@log.reason</td>
+                                            <td>@log.createdAt.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" align="center">
+                                            No logs at them moment
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -38,18 +98,40 @@
             <thead class="table-dark">
                 <tr>
                     <th>Spot</th>
+                    <th>Call Sign</th>
                     <th>Type</th>
-                    <th>Occupancy</th>
+                    <th>Occupied</th>
                 </tr>
             </thead>
-            <tbody id="parking-table">
-                <!-- Data will be inserted here dynamically -->
+            <tbody>
+                @{
+                    int count = 1;
+                }
+                @if (Model.Parking != null && Model.Parking.Any())
+                {
+                    foreach (var parking in Model.Parking)
+                    {
+                        <tr>
+                            <td>@count</td>
+                            <td>@parking.callSign</td>
+                            <td>@parking.type</td>
+                            <td>@parking.isOccupied</td>
+                        </tr>
+
+                        count++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" align="center">
+                            No logs at them moment
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
 
-        <h4 class="mt-4">Recent State Changes</h4>
-        <div id="recent-logs" class="p-3 border rounded bg-white">
-            Fetching data...
-        </div>
+
     </div>
 </div>

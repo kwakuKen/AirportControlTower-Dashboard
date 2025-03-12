@@ -1,29 +1,36 @@
+using ControlTowerDashboard.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ControlTowerDashboard.Controllers;
 
-public class HomeController(ILogger<HomeController> logger) : Controller
+public class HomeController(
+    ILogger<HomeController> logger,
+    IDashboardService dashboardService
+    ) : Controller
 {
-    private readonly ILogger<HomeController> _logger = logger;
 
     public IActionResult Index()
     {
         return View();
     }
 
-    public IActionResult Dashboard()
+    public async Task<IActionResult> Dashboard()
     {
-        return View();
+        var result = await dashboardService.DashboardView();
+        return View(result);
     }
 
-    public IActionResult AircraftList()
+    public async Task<IActionResult> AircraftList()
     {
-        return View();
+        var result = await dashboardService.AircraftListWithDataShared();
+        return View(result);
     }
 
-    public IActionResult HistoricalLogs()
+    public async Task<IActionResult> HistoricalLogs()
     {
-        return View();
+        var result = await dashboardService.AircraftLog();
+        return View(result);
     }
 
 }

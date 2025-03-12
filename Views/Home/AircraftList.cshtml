@@ -2,6 +2,7 @@
     Layout = "_AdminLayout";
     ViewData["Title"] = "Aircraft List";
 }
+@model AircraftListViewModel[]
 
 <div class="d-flex">
     <!-- Sidebar -->
@@ -26,13 +27,44 @@
         <table class="table table-striped table-bordered">
             <thead class="table-dark">
                 <tr>
+                    <th>Type</th>
                     <th>Call Sign</th>
-                    <th>Last Reported Location</th>
-                    <th>Last Communication Time</th>
+                    <th>State</th>
+                    <th>Logitude</th>
+                    <th>Latitude</th>
+                    <th>Altitude</th>
+                    <th>Heading</th>
+                    <th>Created At</th>
                 </tr>
             </thead>
-            <tbody id="aircraft-list">
-                <!-- Data will be inserted here dynamically -->
+            <tbody>
+                @{
+                    if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.type</td>
+                                <td>@item.callSign</td>
+                                <td>@item.state</td>
+                                <td>@item.longitude</td>
+                                <td>@item.latitude</td>
+                                <td>@item.altitude</td>
+                                <td>@item.heading</td>
+                                <td>@item.createdAt.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8" align="center">
+                                <p class="text-danger">No data found at the moment.</p>
+                            </td>
+                        </tr>
+                    }
+
+                }
             </tbody>
         </table>
     </div>
